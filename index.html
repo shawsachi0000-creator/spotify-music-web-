@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>My Music - Spotify Music</title>
+  <title>My Music</title>
 
   <style>
     * {
@@ -15,23 +15,27 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: #121212;
+      background: #080808;
       color: white;
     }
 
     header {
       padding: 25px 20px;
       background: #000;
-      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #222;
     }
 
     header h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
+      text-align: center;
+      color: #1db954;
+      margin-bottom: 20px;
     }
 
     .search-box {
-      max-width: 600px;
+      max-width: 650px;
       margin: auto;
       display: flex;
       gap: 10px;
@@ -39,17 +43,17 @@
 
     .search-box input {
       flex: 1;
-      padding: 14px;
+      padding: 14px 20px;
+      border-radius: 30px;
       border: none;
-      border-radius: 25px;
-      font-size: 16px;
       outline: none;
+      font-size: 16px;
     }
 
     .search-box button {
-      padding: 14px 22px;
+      padding: 14px 24px;
       border: none;
-      border-radius: 25px;
+      border-radius: 30px;
       background: #1db954;
       color: white;
       font-weight: bold;
@@ -57,70 +61,146 @@
     }
 
     main {
-      max-width: 1100px;
+      width: min(1100px, 94%);
       margin: auto;
-      padding: 30px 20px;
+      padding: 40px 0;
     }
 
-    .section-title {
+    .hero {
+      text-align: center;
+      padding: 45px 20px;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 17px;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section h2 {
       margin-bottom: 20px;
-      font-size: 24px;
-    }
-
-    .music-box {
-      background: #181818;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 25px;
+      font-size: 26px;
     }
 
     .playlist-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
     }
 
     .playlist-card {
       background: #181818;
-      padding: 20px;
-      border-radius: 12px;
-      transition: 0.2s;
+      padding: 10px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #252525;
     }
 
     .playlist-card:hover {
-      background: #282828;
-      transform: translateY(-3px);
+      border-color: #1db954;
     }
 
-    .playlist-card h3 {
+    .playlist-card iframe {
+      display: block;
+      width: 100%;
+      height: 352px;
+      border: none;
+      border-radius: 12px;
+    }
+
+    .search-results {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .result-card {
+      background: #181818;
+      padding: 20px;
+      border-radius: 14px;
+    }
+
+    .result-card h3 {
       margin-bottom: 10px;
     }
 
-    .playlist-card p {
-      color: #b3b3b3;
+    .result-card p {
+      color: #aaa;
       margin-bottom: 15px;
     }
 
-    .playlist-card button {
+    .result-card button {
       background: #1db954;
       color: white;
       border: none;
-      padding: 10px 16px;
-      border-radius: 20px;
+      padding: 10px 18px;
+      border-radius: 22px;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    #message {
-      margin-top: 20px;
-      color: #b3b3b3;
+    .spotify-login {
+      margin-top: 45px;
+      padding: 30px;
       text-align: center;
+      background: #181818;
+      border-radius: 16px;
+    }
+
+    .spotify-login h2 {
+      margin-bottom: 10px;
+    }
+
+    .spotify-login p {
+      color: #aaa;
+      margin-bottom: 18px;
+    }
+
+    #spotifyLoginBtn {
+      background: #1db954;
+      color: white;
+      border: none;
+      padding: 13px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     footer {
       text-align: center;
-      padding: 30px;
-      color: #888;
-      margin-top: 30px;
+      padding: 40px 20px;
+      color: #777;
+      border-top: 1px solid #222;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 600px) {
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-box button {
+        width: 100%;
+      }
+
+      .hero h2 {
+        font-size: 28px;
+      }
+
+      .playlist-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -128,9 +208,11 @@
 <body>
 
   <header>
+
     <h1>🎵 My Music</h1>
 
     <div class="search-box">
+
       <input
         type="text"
         id="searchInput"
@@ -140,448 +222,156 @@
       <button onclick="searchMusic()">
         Search
       </button>
+
     </div>
+
   </header>
+
 
   <main>
 
-    <h2 class="section-title">🎧 Music</h2>
+    <section class="hero">
 
-    <div class="music-box">
+      <h2>🎧 Your Music World</h2>
+
       <p>
-        Search for your favourite music and listen through Spotify.
+        Discover and listen to music through Spotify.
       </p>
 
-      <div id="message">
-        Spotify search feature will be connected in the next part.
+    </section>
+
+
+    <!-- =========================
+         SPOTIFY PLAYLISTS
+         ========================= -->
+
+    <section class="section">
+
+      <h2>🔥 Featured Playlists</h2>
+
+      <div class="playlist-grid">
+
+
+        <!-- Playlist 1 -->
+
+        <div class="playlist-card">
+
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1E8LkVkx8VccyZ"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+
+        </div>
+
+
+        <!-- Playlist 2 -->
+
+        <div class="playlist-card">
+
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1E4yDV1qhdLHxf"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+
+        </div>
+
+
+        <!-- Playlist 3 -->
+
+        <div class="playlist-card">
+
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXbVhgADFy3im"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+
+        </div>
+
+
+        <!-- Playlist 4 -->
+
+        <div class="playlist-card">
+
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdpQPPZq3F7n"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+
+        </div>
+
+
       </div>
-    </div>
 
-    <h2 class="section-title">🔥 Playlists</h2>
+    </section>
 
-    <div class="playlist-grid">
 
-      <div class="playlist-card">
-        <h3>🎵 Hindi Hits</h3>
-        <p>Popular Hindi songs</p>
-        <button onclick="openPlaylist('hindi')">
-          Open Playlist
-        </button>
+    <!-- =========================
+         SEARCH RESULTS
+         ========================= -->
+
+    <section class="section">
+
+      <h2>🔎 Search Music</h2>
+
+      <div
+        id="searchResults"
+        class="search-results">
+
+        <div class="result-card">
+
+          <h3>🎵 Music Search</h3>
+
+          <p>
+            Connect Spotify to search music.
+          </p>
+
+        </div>
+
       </div>
 
-      <div class="playlist-card">
-        <h3>❤️ Love Songs</h3>
-        <p>Romantic and love songs</p>
-        <button onclick="openPlaylist('love')">
-          Open Playlist
-        </button>
-      </div>
+    </section>
 
-      <div class="playlist-card">
-        <h3>🔥 Trending</h3>
-        <p>Latest trending music</p>
-        <button onclick="openPlaylist('trending')">
-          Open Playlist
-        </button>
-      </div>
 
-      <div class="playlist-card">
-        <h3>🌍 English Hits</h3>
-        <p>Popular English songs</p>
-        <button onclick="openPlaylist('english')">
-          Open Playlist
-        </button>
-      </div>
+    <!-- =========================
+         SPOTIFY LOGIN
+         ========================= -->
 
-    </div>
+    <section class="spotify-login">
+
+      <h2>🎧 Connect Spotify</h2>
+
+      <p>
+        Connect your Spotify account to use music search.
+      </p>
+
+      <button
+        id="spotifyLoginBtn"
+        onclick="loginWithSpotify()">
+
+        🎵 Connect Spotify
+
+      </button>
+
+      <p id="loginStatus"></p>
+
+    </section>
+
 
   </main>
 
+
   <footer>
+
     © 2026 My Music
+
   </footer>
 
-  <script>
-    function searchMusic() {
 
-      const search = document.getElementById("searchInput").value.trim();
-
-      if (search === "") {
-        document.getElementById("message").innerText =
-          "Please enter a song, artist or playlist name.";
-        return;
-      }
-
-      document.getElementById("message").innerText =
-        "Searching for: " + search;
-    }
-
-    function openPlaylist(type) {
-
-      document.getElementById("message").innerText =
-        "Playlist selected: " + type;
-    }
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
-<!-- =========================
-     PART-2 : SPOTIFY PLAYER
-     ========================= -->
-
-<section class="music-player">
-
-  <h2>🎶 Featured Spotify Playlist</h2>
-
-  <div class="spotify-container">
-
-    <iframe
-      src="https://open.spotify.com/embed/playlist/6giQtzNegauz9pVOcQhU2j?utm_source=generator"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-<section class="spotify-playlists">
-
-  <h2>🎵 My Spotify Playlists</h2>
-
-  <div class="playlist-embed">
-    <iframe
-      src="https://open.spotify.com/embed/playlist/37i9dQZF1E8LkVkx8VccyZ"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allowfullscreen
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-  </div>
-
-  <div class="playlist-embed">
-    <iframe
-      src="https://open.spotify.com/embed/playlist/37i9dQZF1E4yDV1qhdLHxf"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allowfullscreen
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-  </div>
-
-  <div class="playlist-embed">
-    <iframe
-      src="https://open.spotify.com/embed/playlist/37i9dQZF1DXbVhgADFy3im"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allowfullscreen
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-  </div>
-
-  <div class="playlist-embed">
-    <iframe
-      src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdpQPPZq3F7n"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allowfullscreen
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-  </div>
-
-</section>
-  </div>
-
-</section>
-
-<style>
-  .music-player {
-    margin-top: 35px;
-  }
-
-  .music-player h2 {
-    margin-bottom: 18px;
-  }
-
-  .spotify-container {
-    background: #181818;
-    padding: 10px;
-    border-radius: 14px;
-    overflow: hidden;
-  }
-
-  .spotify-container iframe {
-    display: block;
-    border-radius: 12px;
-  }
-</style>
-<!-- =========================
-     PART-3 : SEARCH RESULTS
-     ========================= -->
-
-<section class="search-section">
-
-  <h2>🔎 Search Music</h2>
-
-  <div id="searchResults" class="search-results">
-    <p class="empty-message">
-      Search for a song, artist or playlist.
-    </p>
-  </div>
-
-</section>
-
-<style>
-  .search-section {
-    margin-top: 40px;
-  }
-
-  .search-section h2 {
-    margin-bottom: 20px;
-  }
-
-  .search-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 18px;
-  }
-
-  .result-card {
-    background: #181818;
-    padding: 18px;
-    border-radius: 12px;
-  }
-
-  .result-card h3 {
-    margin-bottom: 8px;
-  }
-
-  .result-card p {
-    color: #b3b3b3;
-    margin-bottom: 15px;
-  }
-
-  .result-card button {
-    background: #1db954;
-    border: none;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  .empty-message {
-    color: #999;
-  }
-</style>
-
-<script>
-  function showResult(title, artist) {
-
-    const results = document.getElementById("searchResults");
-
-    results.innerHTML = `
-      <div class="result-card">
-        <h3>🎵 ${title}</h3>
-        <p>${artist}</p>
-        <button onclick="alert('Spotify player अगले part में जुड़ेगा')">
-          ▶ Play
-        </button>
-      </div>
-    `;
-  }
-</script>
-<!-- =========================
-     PART-4 : MUSIC LIBRARY
-     ========================= -->
-
-<section class="music-library">
-
-  <h2>🎵 Music Library</h2>
-
-  <div class="music-grid">
-
-    <div class="music-card">
-      <div class="music-icon">🎧</div>
-      <h3>Hindi Hits</h3>
-      <p>Popular Hindi music</p>
-      <button onclick="showPlaylist('Hindi Hits')">
-        ▶ Play
-      </button>
-    </div>
-
-    <div class="music-card">
-      <div class="music-icon">❤️</div>
-      <h3>Love Songs</h3>
-      <p>Romantic music collection</p>
-      <button onclick="showPlaylist('Love Songs')">
-        ▶ Play
-      </button>
-    </div>
-
-    <div class="music-card">
-      <div class="music-icon">🔥</div>
-      <h3>Trending Songs</h3>
-      <p>Currently popular music</p>
-      <button onclick="showPlaylist('Trending Songs')">
-        ▶ Play
-      </button>
-    </div>
-
-    <div class="music-card">
-      <div class="music-icon">🌍</div>
-      <h3>English Hits</h3>
-      <p>Popular English music</p>
-      <button onclick="showPlaylist('English Hits')">
-        ▶ Play
-      </button>
-    </div>
-
-  </div>
-
-  <div id="playlistMessage" class="playlist-message">
-    Select a playlist to continue.
-  </div>
-
-</section>
-
-<style>
-  .music-library {
-    margin-top: 40px;
-  }
-
-  .music-library h2 {
-    margin-bottom: 20px;
-  }
-
-  .music-grid {
-    display: grid;
-    grid-template-columns:
-      repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-
-  .music-card {
-    background: #181818;
-    padding: 22px;
-    border-radius: 14px;
-    transition: 0.2s;
-  }
-
-  .music-card:hover {
-    background: #282828;
-    transform: translateY(-4px);
-  }
-
-  .music-icon {
-    font-size: 42px;
-    margin-bottom: 15px;
-  }
-
-  .music-card h3 {
-    margin-bottom: 8px;
-  }
-
-  .music-card p {
-    color: #aaa;
-    margin-bottom: 18px;
-  }
-
-  .music-card button {
-    background: #1db954;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  .playlist-message {
-    margin-top: 25px;
-    padding: 18px;
-    background: #181818;
-    border-radius: 12px;
-    color: #b3b3b3;
-    text-align: center;
-  }
-</style>
-
-<script>
-  function showPlaylist(name) {
-    document.getElementById("playlistMessage").innerText =
-      "Selected playlist: " + name;
-  }
-</script>
-<!-- =========================
-     PART-5 : SPOTIFY LOGIN
-     ========================= -->
-
-<section class="spotify-login">
-
-  <h2>🎧 Connect Spotify</h2>
-
-  <p>
-    Connect your Spotify account to search and play music.
-  </p>
-
-  <button id="spotifyLoginBtn" onclick="loginWithSpotify()">
-    🎵 Connect Spotify
-  </button>
-
-  <p id="loginStatus"></p>
-
-</section>
-
-<style>
-  .spotify-login {
-    margin-top: 40px;
-    padding: 25px;
-    background: #181818;
-    border-radius: 14px;
-    text-align: center;
-  }
-
-  .spotify-login h2 {
-    margin-bottom: 12px;
-  }
-
-  .spotify-login p {
-    color: #aaa;
-    margin-bottom: 18px;
-  }
-
-  #spotifyLoginBtn {
-    background: #1db954;
-    color: white;
-    border: none;
-    padding: 13px 24px;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  #loginStatus {
-    margin-top: 15px;
-  }
-</style>
-
-<script>
-  function loginWithSpotify() {
-
-    const status =
-      document.getElementById("loginStatus");
-
-    status.innerText =
-      "Spotify connection will be activated after the Client ID is added.";
-  }
-</script>
