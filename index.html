@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Music - Spotify Music</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: white;
+    }
+
+    header {
+      padding: 25px 20px;
+      background: #000;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .search-box {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box button {
+      padding: 14px 22px;
+      border: none;
+      border-radius: 25px;
+      background: #1db954;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section-title {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .music-box {
+      background: #181818;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .playlist-card {
+      background: #181818;
+      padding: 20px;
+      border-radius: 12px;
+      transition: 0.2s;
+    }
+
+    .playlist-card:hover {
+      background: #282828;
+      transform: translateY(-3px);
+    }
+
+    .playlist-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .playlist-card p {
+      color: #b3b3b3;
+      margin-bottom: 15px;
+    }
+
+    .playlist-card button {
+      background: #1db954;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      color: #b3b3b3;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #888;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎵 My Music</h1>
+
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search songs, artists or playlists..."
+      >
+
+      <button onclick="searchMusic()">
+        Search
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <h2 class="section-title">🎧 Music</h2>
+
+    <div class="music-box">
+      <p>
+        Search for your favourite music and listen through Spotify.
+      </p>
+
+      <div id="message">
+        Spotify search feature will be connected in the next part.
+      </div>
+    </div>
+
+    <h2 class="section-title">🔥 Playlists</h2>
+
+    <div class="playlist-grid">
+
+      <div class="playlist-card">
+        <h3>🎵 Hindi Hits</h3>
+        <p>Popular Hindi songs</p>
+        <button onclick="openPlaylist('hindi')">
+          Open Playlist
+        </button>
+      </div>
+
+      <div class="playlist-card">
+        <h3>❤️ Love Songs</h3>
+        <p>Romantic and love songs</p>
+        <button onclick="openPlaylist('love')">
+          Open Playlist
+        </button>
+      </div>
+
+      <div class="playlist-card">
+        <h3>🔥 Trending</h3>
+        <p>Latest trending music</p>
+        <button onclick="openPlaylist('trending')">
+          Open Playlist
+        </button>
+      </div>
+
+      <div class="playlist-card">
+        <h3>🌍 English Hits</h3>
+        <p>Popular English songs</p>
+        <button onclick="openPlaylist('english')">
+          Open Playlist
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 My Music
+  </footer>
+
+  <script>
+    function searchMusic() {
+
+      const search = document.getElementById("searchInput").value.trim();
+
+      if (search === "") {
+        document.getElementById("message").innerText =
+          "Please enter a song, artist or playlist name.";
+        return;
+      }
+
+      document.getElementById("message").innerText =
+        "Searching for: " + search;
+    }
+
+    function openPlaylist(type) {
+
+      document.getElementById("message").innerText =
+        "Playlist selected: " + type;
+    }
+  </script>
+
+</body>
+</html>
+<!-- =========================
+     PART-2 : SPOTIFY PLAYER
+     ========================= -->
+
+<section class="music-player">
+
+  <h2>🎶 Featured Spotify Playlist</h2>
+
+  <div class="spotify-container">
+
+    <iframe
+      src="https://open.spotify.com/embed/playlist/6giQtzNegauz9pVOcQhU2j?utm_source=generator"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+
+  </div>
+
+</section>
+
+<style>
+  .music-player {
+    margin-top: 35px;
+  }
+
+  .music-player h2 {
+    margin-bottom: 18px;
+  }
+
+  .spotify-container {
+    background: #181818;
+    padding: 10px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .spotify-container iframe {
+    display: block;
+    border-radius: 12px;
+  }
+</style>
+<!-- =========================
+     PART-3 : SEARCH RESULTS
+     ========================= -->
+
+<section class="search-section">
+
+  <h2>🔎 Search Music</h2>
+
+  <div id="searchResults" class="search-results">
+    <p class="empty-message">
+      Search for a song, artist or playlist.
+    </p>
+  </div>
+
+</section>
+
+<style>
+  .search-section {
+    margin-top: 40px;
+  }
+
+  .search-section h2 {
+    margin-bottom: 20px;
+  }
+
+  .search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+  }
+
+  .result-card {
+    background: #181818;
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .result-card h3 {
+    margin-bottom: 8px;
+  }
+
+  .result-card p {
+    color: #b3b3b3;
+    margin-bottom: 15px;
+  }
+
+  .result-card button {
+    background: #1db954;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .empty-message {
+    color: #999;
+  }
+</style>
+
+<script>
+  function showResult(title, artist) {
+
+    const results = document.getElementById("searchResults");
+
+    results.innerHTML = `
+      <div class="result-card">
+        <h3>🎵 ${title}</h3>
+        <p>${artist}</p>
+        <button onclick="alert('Spotify player अगले part में जुड़ेगा')">
+          ▶ Play
+        </button>
+      </div>
+    `;
+  }
+</script>
