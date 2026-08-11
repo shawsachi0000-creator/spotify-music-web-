@@ -38,7 +38,6 @@ if (searchInput) {
     }
   });
 }
-
 // Playlist selection
 function showPlaylist(name) {
   const playlistMessage =
@@ -50,14 +49,10 @@ function showPlaylist(name) {
   }
 }
 
-// Spotify connection placeholder
+// Spotify connection
 function connectSpotify() {
-  const status =
-    document.getElementById("loginStatus");
-
-  function connectSpotify() {
   loginWithSpotify();
-  }
+}
 
 // Basic HTML protection
 function escapeHTML(text) {
@@ -65,6 +60,7 @@ function escapeHTML(text) {
   div.textContent = text;
   return div.innerHTML;
 }
+
 // =================================
 // PART-2 : SPOTIFY PKCE LOGIN
 // =================================
