@@ -347,3 +347,189 @@
     `;
   }
 </script>
+<!-- =========================
+     PART-4 : MUSIC LIBRARY
+     ========================= -->
+
+<section class="music-library">
+
+  <h2>🎵 Music Library</h2>
+
+  <div class="music-grid">
+
+    <div class="music-card">
+      <div class="music-icon">🎧</div>
+      <h3>Hindi Hits</h3>
+      <p>Popular Hindi music</p>
+      <button onclick="showPlaylist('Hindi Hits')">
+        ▶ Play
+      </button>
+    </div>
+
+    <div class="music-card">
+      <div class="music-icon">❤️</div>
+      <h3>Love Songs</h3>
+      <p>Romantic music collection</p>
+      <button onclick="showPlaylist('Love Songs')">
+        ▶ Play
+      </button>
+    </div>
+
+    <div class="music-card">
+      <div class="music-icon">🔥</div>
+      <h3>Trending Songs</h3>
+      <p>Currently popular music</p>
+      <button onclick="showPlaylist('Trending Songs')">
+        ▶ Play
+      </button>
+    </div>
+
+    <div class="music-card">
+      <div class="music-icon">🌍</div>
+      <h3>English Hits</h3>
+      <p>Popular English music</p>
+      <button onclick="showPlaylist('English Hits')">
+        ▶ Play
+      </button>
+    </div>
+
+  </div>
+
+  <div id="playlistMessage" class="playlist-message">
+    Select a playlist to continue.
+  </div>
+
+</section>
+
+<style>
+  .music-library {
+    margin-top: 40px;
+  }
+
+  .music-library h2 {
+    margin-bottom: 20px;
+  }
+
+  .music-grid {
+    display: grid;
+    grid-template-columns:
+      repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .music-card {
+    background: #181818;
+    padding: 22px;
+    border-radius: 14px;
+    transition: 0.2s;
+  }
+
+  .music-card:hover {
+    background: #282828;
+    transform: translateY(-4px);
+  }
+
+  .music-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+  }
+
+  .music-card h3 {
+    margin-bottom: 8px;
+  }
+
+  .music-card p {
+    color: #aaa;
+    margin-bottom: 18px;
+  }
+
+  .music-card button {
+    background: #1db954;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .playlist-message {
+    margin-top: 25px;
+    padding: 18px;
+    background: #181818;
+    border-radius: 12px;
+    color: #b3b3b3;
+    text-align: center;
+  }
+</style>
+
+<script>
+  function showPlaylist(name) {
+    document.getElementById("playlistMessage").innerText =
+      "Selected playlist: " + name;
+  }
+</script>
+<!-- =========================
+     PART-5 : SPOTIFY LOGIN
+     ========================= -->
+
+<section class="spotify-login">
+
+  <h2>🎧 Connect Spotify</h2>
+
+  <p>
+    Connect your Spotify account to search and play music.
+  </p>
+
+  <button id="spotifyLoginBtn" onclick="loginWithSpotify()">
+    🎵 Connect Spotify
+  </button>
+
+  <p id="loginStatus"></p>
+
+</section>
+
+<style>
+  .spotify-login {
+    margin-top: 40px;
+    padding: 25px;
+    background: #181818;
+    border-radius: 14px;
+    text-align: center;
+  }
+
+  .spotify-login h2 {
+    margin-bottom: 12px;
+  }
+
+  .spotify-login p {
+    color: #aaa;
+    margin-bottom: 18px;
+  }
+
+  #spotifyLoginBtn {
+    background: #1db954;
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #loginStatus {
+    margin-top: 15px;
+  }
+</style>
+
+<script>
+  function loginWithSpotify() {
+
+    const status =
+      document.getElementById("loginStatus");
+
+    status.innerText =
+      "Spotify connection will be activated after the Client ID is added.";
+  }
+</script>
