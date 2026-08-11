@@ -55,11 +55,9 @@ function connectSpotify() {
   const status =
     document.getElementById("loginStatus");
 
-  if (status) {
-    status.innerText =
-      "Spotify connection will be added in the next step.";
+  function connectSpotify() {
+  loginWithSpotify();
   }
-}
 
 // Basic HTML protection
 function escapeHTML(text) {
