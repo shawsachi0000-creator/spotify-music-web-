@@ -354,7 +354,58 @@ footer {
   main {
     width: 92%;
   }
+/* Spotify Style Logo */
 
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.brand h1 {
+  margin: 0;
+  color: #1ed760;
+  font-size: 30px;
+}
+
+.spotify-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1ed760;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+
+  padding: 10px;
+}
+
+.spotify-logo span {
+  display: block;
+  height: 3px;
+  background: #000;
+  border-radius: 50%;
+
+  transform: rotate(8deg);
+}
+
+.spotify-logo span:nth-child(1) {
+  width: 25px;
+}
+
+.spotify-logo span:nth-child(2) {
+  width: 21px;
+}
+
+.spotify-logo span:nth-child(3) {
+  width: 16px;
+}
   .hero h2 {
     font-size: 26px;
   }
