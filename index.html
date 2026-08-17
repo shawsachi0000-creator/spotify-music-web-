@@ -1,415 +1,1521 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MusicFlow - Your Music</title>
 
-  <title>My Music</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+:root{
+    --bg:#080d13;
+    --panel:#101820;
+    --panel2:#151f29;
+    --text:#fff;
+    --muted:#9aa5af;
+    --blue:#19a7ff;
+    --blue2:#0878c9;
+    --orange:#ff9900;
+    --border:#25313c;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    height:64px;
+    background:#0b1117;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:0 22px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    width:225px;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.logo-icon{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#19a7ff,#0066aa);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+}
+
+.logo span{
+    color:#fff;
+}
+
+.logo b{
+    color:var(--blue);
+}
+
+.search{
+    flex:1;
+    max-width:600px;
+    margin:auto;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    height:42px;
+    border:1px solid #34414c;
+    border-radius:25px;
+    background:#17212a;
+    color:white;
+    padding:0 48px 0 18px;
+    outline:none;
+    font-size:14px;
+}
+
+.search input:focus{
+    border-color:var(--blue);
+}
+
+.search-icon{
+    position:absolute;
+    right:17px;
+    top:12px;
+    color:#aeb8c0;
+}
+
+.header-right{
+    width:225px;
+    display:flex;
+    justify-content:flex-end;
+    gap:18px;
+    align-items:center;
+}
+
+.header-btn{
+    background:none;
+    border:0;
+    color:#ddd;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.profile{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ff9900,#ff5e00);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    top:64px;
+    bottom:80px;
+    left:0;
+    width:225px;
+    background:#0b1117;
+    border-right:1px solid var(--border);
+    padding:22px 12px;
+    overflow-y:auto;
+}
+
+.menu-title{
+    color:#697580;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:10px 14px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:12px 14px;
+    border-radius:8px;
+    color:#aeb7bf;
+    cursor:pointer;
+    margin:3px 0;
+    transition:.2s;
+}
+
+.nav-item:hover{
+    background:#17222c;
+    color:white;
+}
+
+.nav-item.active{
+    background:#172b3b;
+    color:#20aaff;
+}
+
+.nav-item span:first-child{
+    width:22px;
+    text-align:center;
+    font-size:18px;
+}
+
+/* ================= MAIN ================= */
+
+main{
+    margin-left:225px;
+    padding:92px 30px 120px;
+    min-height:100vh;
+}
+
+.hero{
+    min-height:280px;
+    border-radius:18px;
+    overflow:hidden;
+    padding:45px;
+    display:flex;
+    align-items:center;
+    background:
+        radial-gradient(circle at 80% 30%,rgba(0,160,255,.35),transparent 35%),
+        linear-gradient(120deg,#132333,#071017);
+    border:1px solid var(--border);
+    margin-bottom:32px;
+}
+
+.hero-content{
+    max-width:600px;
+}
+
+.hero small{
+    color:#20aaff;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.hero h1{
+    font-size:42px;
+    margin:12px 0;
+}
+
+.hero p{
+    color:#aab5bd;
+    line-height:1.6;
+}
+
+.hero button{
+    margin-top:22px;
+    padding:12px 25px;
+    border:0;
+    border-radius:24px;
+    background:var(--blue);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.hero button:hover{
+    background:#078ddd;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    margin-bottom:36px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:17px;
+}
+
+.section-head h2{
+    font-size:22px;
+}
+
+.see-all{
+    color:#20aaff;
+    cursor:pointer;
+    font-size:13px;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:#101820;
+    padding:10px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.25s;
+    border:1px solid transparent;
+}
+
+.card:hover{
+    background:#17232d;
+    transform:translateY(-3px);
+    border-color:#263945;
+}
+
+.cover{
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:7px;
+    object-fit:cover;
+    background:linear-gradient(135deg,#163b55,#07131d);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    margin-bottom:12px;
+    position:relative;
+    overflow:hidden;
+}
+
+.cover::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(transparent 60%,rgba(0,0,0,.5));
+}
+
+.play-small{
+    position:absolute;
+    bottom:10px;
+    right:10px;
+    z-index:2;
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:var(--blue);
+    color:white;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(5px);
+    transition:.2s;
+}
+
+.card:hover .play-small{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card h3{
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.card p{
+    color:#87939d;
+    font-size:12px;
+    margin-top:6px;
+}
+
+/* ================= QUICK PICKS ================= */
+
+.quick-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.quick{
+    display:flex;
+    align-items:center;
+    background:#101820;
+    border-radius:8px;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.quick:hover{
+    background:#19252f;
+}
+
+.quick-cover{
+    width:70px;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#14496a,#092030);
+    font-size:25px;
+}
+
+.quick-info{
+    padding:0 14px;
+    flex:1;
+}
+
+.quick-info h3{
+    font-size:14px;
+}
+
+.quick-info p{
+    color:#7f8b94;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.quick-play{
+    margin-right:15px;
+    border:0;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:#22313c;
+    color:white;
+    cursor:pointer;
+}
+
+/* ================= PLAYER ================= */
+
+.player{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:80px;
+    background:rgba(12,18,24,.97);
+    backdrop-filter:blur(15px);
+    border-top:1px solid #2a3742;
+    z-index:2000;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+}
+
+.now-playing{
+    width:270px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.now-cover{
+    width:54px;
+    height:54px;
+    border-radius:5px;
+    background:linear-gradient(135deg,#125783,#0b1c28);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.now-info{
+    min-width:0;
+}
+
+.now-info h4{
+    font-size:13px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.now-info p{
+    font-size:11px;
+    color:#8d99a2;
+    margin-top:4px;
+}
+
+.like{
+    border:0;
+    background:none;
+    color:#8d99a2;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.controls{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+}
+
+.control-buttons{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.control-buttons button{
+    background:none;
+    border:0;
+    color:#d9e0e5;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.control-buttons .main-play{
+    width:35px;
+    height:35px;
+    background:white;
+    color:#111;
+    border-radius:50%;
+    font-size:15px;
+}
+
+.progress-row{
+    display:flex;
+    align-items:center;
+    width:80%;
+    gap:9px;
+    font-size:10px;
+    color:#82909a;
+}
+
+.progress{
+    flex:1;
+    height:4px;
+    appearance:none;
+    background:#3b4852;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.progress::-webkit-slider-thumb{
+    appearance:none;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:white;
+}
+
+.volume{
+    width:200px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.volume input{
+    width:100px;
+    accent-color:var(--blue);
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:800px){
+
+    header{
+        padding:0 12px;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #080808;
-      color: white;
+    .logo{
+        width:auto;
     }
 
-    header {
-      padding: 25px 20px;
-      background: #000;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #222;
+    .logo span{
+        display:none;
     }
 
-    header h1 {
-      text-align: center;
-      color: #1db954;
-      margin-bottom: 20px;
+    .header-right{
+        width:auto;
     }
 
-    .search-box {
-      max-width: 650px;
-      margin: auto;
-      display: flex;
-      gap: 10px;
+    .search{
+        margin:0 12px;
     }
 
-    .search-box input {
-      flex: 1;
-      padding: 14px 20px;
-      border-radius: 30px;
-      border: none;
-      outline: none;
-      font-size: 16px;
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+        z-index:1500;
     }
 
-    .search-box button {
-      padding: 14px 24px;
-      border: none;
-      border-radius: 30px;
-      background: #1db954;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+    .sidebar.open{
+        transform:translateX(0);
     }
 
-    main {
-      width: min(1100px, 94%);
-      margin: auto;
-      padding: 40px 0;
+    .mobile-menu{
+        display:block;
+        background:none;
+        border:0;
+        color:white;
+        font-size:22px;
+        cursor:pointer;
     }
 
-    .hero {
-      text-align: center;
-      padding: 45px 20px;
+    main{
+        margin-left:0;
+        padding:84px 15px 120px;
     }
 
-    .hero h2 {
-      font-size: 36px;
-      margin-bottom: 12px;
+    .hero{
+        padding:28px;
+        min-height:260px;
     }
 
-    .hero p {
-      color: #aaa;
-      font-size: 17px;
+    .hero h1{
+        font-size:30px;
     }
 
-    .section {
-      margin-top: 40px;
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
     }
 
-    .section h2 {
-      margin-bottom: 20px;
-      font-size: 26px;
+    .quick-list{
+        grid-template-columns:1fr;
     }
 
-    .playlist-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(300px, 1fr));
-      gap: 22px;
+    .now-playing{
+        width:auto;
+        flex:1;
     }
 
-    .playlist-card {
-      background: #181818;
-      padding: 10px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid #252525;
+    .now-info{
+        max-width:130px;
     }
 
-    .playlist-card:hover {
-      border-color: #1db954;
+    .controls{
+        flex:0;
     }
 
-    .playlist-card iframe {
-      display: block;
-      width: 100%;
-      height: 352px;
-      border: none;
-      border-radius: 12px;
+    .progress-row{
+        display:none;
     }
 
-    .search-results {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
+    .volume{
+        display:none;
     }
 
-    .result-card {
-      background: #181818;
-      padding: 20px;
-      border-radius: 14px;
+    .control-buttons{
+        gap:12px;
     }
 
-    .result-card h3 {
-      margin-bottom: 10px;
+    .control-buttons button:nth-child(1),
+    .control-buttons button:nth-child(5){
+        display:none;
+    }
+}
+
+@media(max-width:500px){
+
+    .search{
+        display:none;
     }
 
-    .result-card p {
-      color: #aaa;
-      margin-bottom: 15px;
+    .header-right{
+        margin-left:auto;
     }
 
-    .result-card button {
-      background: #1db954;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 22px;
-      cursor: pointer;
-      font-weight: bold;
+    .hero{
+        min-height:230px;
     }
 
-    .spotify-login {
-      margin-top: 45px;
-      padding: 30px;
-      text-align: center;
-      background: #181818;
-      border-radius: 16px;
+    .hero h1{
+        font-size:26px;
     }
 
-    .spotify-login h2 {
-      margin-bottom: 10px;
+    .cards{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .spotify-login p {
-      color: #aaa;
-      margin-bottom: 18px;
+    .player{
+        height:72px;
+        padding:0 10px;
     }
 
-    #spotifyLoginBtn {
-      background: #1db954;
-      color: white;
-      border: none;
-      padding: 13px 25px;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
+    .now-cover{
+        width:48px;
+        height:48px;
     }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: #777;
-      border-top: 1px solid #222;
-      margin-top: 50px;
-    }
-
-    @media (max-width: 600px) {
-
-      .search-box {
-        flex-direction: column;
-      }
-
-      .search-box button {
-        width: 100%;
-      }
-
-      .hero h2 {
-        font-size: 28px;
-      }
-
-      .playlist-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-<div class="spotify-logo">●</div>
-    <div class="brand">
-  <div class="spotify-logo">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+<!-- ================= HEADER ================= -->
 
-  <h1>My Music</h1>
+<header>
+
+    <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+
+    <div class="logo">
+        <div class="logo-icon">♪</div>
+        <span>Music<b>Flow</b></span>
     </div>
 
-    <div class="search-box">
-
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search songs, artists or playlists..."
-      >
-
-      <button onclick="searchMusic()">
-        Search
-      </button>
-
+    <div class="search">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search songs, artists, albums..."
+            oninput="searchMusic()"
+        >
+        <span class="search-icon">⌕</span>
     </div>
 
-  </header>
+    <div class="header-right">
+        <button class="header-btn">🔔</button>
+        <div class="profile">S</div>
+    </div>
+
+</header>
 
 
-  <main>
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="menu-title">Menu</div>
+
+    <div class="nav-item active" onclick="showSection('home')">
+        <span>⌂</span>
+        <span>Home</span>
+    </div>
+
+    <div class="nav-item" onclick="showSection('browse')">
+        <span>◉</span>
+        <span>Browse</span>
+    </div>
+
+    <div class="nav-item" onclick="showSection('radio')">
+        <span>◉</span>
+        <span>Radio</span>
+    </div>
+
+    <div class="menu-title">Your Library</div>
+
+    <div class="nav-item">
+        <span>♡</span>
+        <span>Liked Songs</span>
+    </div>
+
+    <div class="nav-item">
+        <span>♫</span>
+        <span>Playlists</span>
+    </div>
+
+    <div class="nav-item">
+        <span>▣</span>
+        <span>Albums</span>
+    </div>
+
+    <div class="nav-item">
+        <span>♬</span>
+        <span>Artists</span>
+    </div>
+
+    <div class="menu-title">My Playlists</div>
+
+    <div class="nav-item">
+        <span>♪</span>
+        <span>My Favorites</span>
+    </div>
+
+    <div class="nav-item">
+        <span>♪</span>
+        <span>Chill Vibes</span>
+    </div>
+
+    <div class="nav-item">
+        <span>♪</span>
+        <span>Workout Mix</span>
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <!-- HERO -->
 
     <section class="hero">
 
-      <h2>🎧 Your Music World</h2>
+        <div class="hero-content">
 
-      <p>
-        Discover and listen to music through Spotify.
-      </p>
+            <small>WELCOME TO MUSICFLOW</small>
+
+            <h1>Music for every moment.</h1>
+
+            <p>
+                Discover new songs, listen to your favorite artists
+                and create your own music collection.
+            </p>
+
+            <button onclick="playSong(0)">
+                ▶ Start Listening
+            </button>
+
+        </div>
 
     </section>
-<!-- NEW & TRENDING -->
-<section class="section latest-section">
 
-  <h2>🔥 New & Trending</h2>
 
-  <div class="latest-carousel">
-
-    <div class="latest-card">
-      <div class="latest-image">🎵</div>
-      <h3>New Song</h3>
-      <p>Latest music</p>
-      <button>▶ Play</button>
-    </div>
-
-    <div class="latest-card">
-      <div class="latest-image">🎬</div>
-      <h3>New Video</h3>
-      <p>Latest video</p>
-      <button>▶ Watch</button>
-    </div>
-
-    <div class="latest-card">
-      <div class="latest-image">🔥</div>
-      <h3>Trending Now</h3>
-      <p>Popular this week</p>
-      <button>▶ Explore</button>
-    </div>
-
-  </div>
-
-</section>
-
-    <!-- =========================
-         SPOTIFY PLAYLISTS
-         ========================= -->
+    <!-- QUICK PICKS -->
 
     <section class="section">
 
-      <h2>🔥 Featured Playlists</h2>
-
-      <div class="playlist-grid">
-
-
-        <!-- Playlist 1 -->
-
-        <div class="playlist-card">
-
-          <iframe
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1E8LkVkx8VccyZ"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-          </iframe>
-
+        <div class="section-head">
+            <h2>Quick Picks</h2>
+            <span class="see-all">See all</span>
         </div>
 
+        <div class="quick-list">
 
-        <!-- Playlist 2 -->
+            <div class="quick" onclick="playSong(0)">
+                <div class="quick-cover">🎵</div>
 
-        <div class="playlist-card">
+                <div class="quick-info">
+                    <h3>Midnight Dreams</h3>
+                    <p>MusicFlow Artist</p>
+                </div>
 
-          <iframe
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1E4yDV1qhdLHxf"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-          </iframe>
+                <button class="quick-play">▶</button>
+            </div>
+
+
+            <div class="quick" onclick="playSong(1)">
+                <div class="quick-cover">🌙</div>
+
+                <div class="quick-info">
+                    <h3>Night Drive</h3>
+                    <p>Dream Beats</p>
+                </div>
+
+                <button class="quick-play">▶</button>
+            </div>
+
+
+            <div class="quick" onclick="playSong(2)">
+                <div class="quick-cover">❤️</div>
+
+                <div class="quick-info">
+                    <h3>Perfect Love</h3>
+                    <p>Romantic Hits</p>
+                </div>
+
+                <button class="quick-play">▶</button>
+            </div>
+
+
+            <div class="quick" onclick="playSong(3)">
+                <div class="quick-cover">🔥</div>
+
+                <div class="quick-info">
+                    <h3>Trending Now</h3>
+                    <p>Top Music</p>
+                </div>
+
+                <button class="quick-play">▶</button>
+            </div>
 
         </div>
-
-
-        <!-- Playlist 3 -->
-
-        <div class="playlist-card">
-
-          <iframe
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXbVhgADFy3im"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-          </iframe>
-
-        </div>
-
-
-        <!-- Playlist 4 -->
-
-        <div class="playlist-card">
-
-          <iframe
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdpQPPZq3F7n"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-          </iframe>
-
-        </div>
-
-
-      </div>
 
     </section>
 
 
-    <!-- =========================
-         SEARCH RESULTS
-         ========================= -->
+    <!-- TRENDING -->
 
     <section class="section">
 
-      <h2>🔎 Search Music</h2>
+        <div class="section-head">
+            <h2>Trending Music</h2>
+            <span class="see-all">See all</span>
+        </div>
 
-      <div
-        id="searchResults"
-        class="search-results">
+        <div class="cards" id="musicCards">
 
-        <div class="result-card">
+            <div class="card" data-search="midnight dreams musicflow">
 
-          <h3>🎵 Music Search</h3>
+                <div class="cover">
+                    🌌
+                    <button class="play-small"
+                        onclick="playSong(0);event.stopPropagation()">
+                        ▶
+                    </button>
+                </div>
 
-          <p>
-            Connect Spotify to search music.
-          </p>
+                <h3>Midnight Dreams</h3>
+                <p>MusicFlow Artist</p>
+
+            </div>
+
+
+            <div class="card" data-search="night drive dream beats">
+
+                <div class="cover">
+                    🌙
+                    <button class="play-small"
+                        onclick="playSong(1);event.stopPropagation()">
+                        ▶
+                    </button>
+                </div>
+
+                <h3>Night Drive</h3>
+                <p>Dream Beats</p>
+
+            </div>
+
+
+            <div class="card" data-search="perfect love romantic">
+
+                <div class="cover">
+                    ❤️
+                    <button class="play-small"
+                        onclick="playSong(2);event.stopPropagation()">
+                        ▶
+                    </button>
+                </div>
+
+                <h3>Perfect Love</h3>
+                <p>Romantic Hits</p>
+
+            </div>
+
+
+            <div class="card" data-search="trending fire top music">
+
+                <div class="cover">
+                    🔥
+                    <button class="play-small"
+                        onclick="playSong(3);event.stopPropagation()">
+                        ▶
+                    </button>
+                </div>
+
+                <h3>Trending Now</h3>
+                <p>Top Music</p>
+
+            </div>
+
+
+            <div class="card" data-search="lofi chill relaxing">
+
+                <div class="cover">
+                    ☁️
+                    <button class="play-small"
+                        onclick="playSong(4);event.stopPropagation()">
+                        ▶
+                    </button>
+                </div>
+
+                <h3>Lo-Fi Chill</h3>
+                <p>Relaxing Beats</p>
+
+            </div>
+
+
+            <div class="card" data-search="summer vibes">
+
+                <div class="cover">
+                    ☀️
+                    <button class="play-small"
+                        onclick="playSong(5);event.stopPropagation()">
+                        ▶
+                    </button>
+                </div>
+
+                <h3>Summer Vibes</h3>
+                <p>Feel Good Music</p>
+
+            </div>
 
         </div>
 
-      </div>
-
     </section>
 
 
-    <!-- =========================
-         SPOTIFY LOGIN
-         ========================= -->
+    <!-- MADE FOR YOU -->
 
-    <section class="spotify-login">
+    <section class="section">
 
-      <h2>🎧 Connect Spotify</h2>
+        <div class="section-head">
+            <h2>Made For You</h2>
+            <span class="see-all">See all</span>
+        </div>
 
-      <p>
-        Connect your Spotify account to use music search.
-      </p>
+        <div class="cards">
 
-      <button
-        id="spotifyLoginBtn"
-        onclick="loginWithSpotify()">
+            <div class="card" onclick="playSong(0)">
+                <div class="cover">🎧</div>
+                <h3>Daily Mix</h3>
+                <p>Your personalized mix</p>
+            </div>
 
-        🎵 Connect Spotify
+            <div class="card" onclick="playSong(2)">
+                <div class="cover">💙</div>
+                <h3>Love Songs</h3>
+                <p>Romantic collection</p>
+            </div>
 
-      </button>
+            <div class="card" onclick="playSong(4)">
+                <div class="cover">🌃</div>
+                <h3>Late Night</h3>
+                <p>Perfect for nights</p>
+            </div>
 
-      <p id="loginStatus"></p>
+            <div class="card" onclick="playSong(3)">
+                <div class="cover">⚡</div>
+                <h3>Energy</h3>
+                <p>Get your energy up</p>
+            </div>
+
+        </div>
 
     </section>
 
-
-  </main>
-
-
-  <footer>
-
-    © 2026 My Music
-
-  </footer>
+</main>
 
 
-  <script src="script.js"></script>
+<!-- ================= MUSIC PLAYER ================= -->
+
+<div class="player">
+
+    <div class="now-playing">
+
+        <div class="now-cover" id="nowCover">
+            🎵
+        </div>
+
+        <div class="now-info">
+
+            <h4 id="nowTitle">
+                Select a song
+            </h4>
+
+            <p id="nowArtist">
+                MusicFlow
+            </p>
+
+        </div>
+
+        <button class="like" onclick="toggleLike()">♡</button>
+
+    </div>
+
+
+    <div class="controls">
+
+        <div class="control-buttons">
+
+            <button onclick="previousSong()">↶</button>
+
+            <button onclick="shuffleSongs()">⤨</button>
+
+            <button class="main-play" id="playBtn"
+                onclick="togglePlay()">
+                ▶
+            </button>
+
+            <button onclick="nextSong()">↷</button>
+
+            <button onclick="repeatSong()">↻</button>
+
+        </div>
+
+        <div class="progress-row">
+
+            <span id="currentTime">0:00</span>
+
+            <input
+                type="range"
+                id="progress"
+                class="progress"
+                min="0"
+                max="100"
+                value="0"
+                oninput="seekMusic()"
+            >
+
+            <span id="duration">0:00</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="volume">
+
+        <span>🔊</span>
+
+        <input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.7"
+            onchange="changeVolume()"
+        >
+
+    </div>
+
+</div>
+
+
+<!-- ================= AUDIO ================= -->
+
+<audio id="audio"></audio>
+
+
+<script>
+
+/* =========================================
+   MUSIC DATA
+
+   Apne MP3 files ke naam yahan daal sakte ho.
+   Example:
+   "music/song1.mp3"
+========================================= */
+
+const songs = [
+
+    {
+        title:"Midnight Dreams",
+        artist:"MusicFlow Artist",
+        cover:"🌌",
+        src:"music/song1.mp3"
+    },
+
+    {
+   title: "Night Drive", artist: "Dream Beats", cover:"", src:"music/song2.mp3
+},
+
+{
+
+},
+
+{
+
+Code
+
+Preview
+
+title: "Night Drive", artist: "Dream Beats", cover:"", src:"music/song2.mp3"
+
+title: "Perfect Love", artist: "Romantic Hits", cover:"" src:"music/song3.mp3"
+
+title: "Trending Now", cover:"",
+
+artist: "Top Music",
+
+src:"music/song4.mp3"
+
+},
+
+{
+
+},
+
+{
+
+}
+
+];
+
+title: "Lo-Fi Chill", artist: "Chill Beats", cover:"", src:"music/song5.mp3"
+
+title: "Summer Vibes", artist: "Feel Good",
+
+cover:"*",
+
+src:"music/song6.mp3"
+
+let currentSong = 0;
+
+let isPlaying = false;
+
+let liked = false;
+
+const audio document.getElementById("audio");
+
+const playBtn document.getElementById("playBtn");
+
+const progress =
+
+document.getElementById("progress");
+
+const currentTime =
+
+document.getElementById("currentTime");
+
+const duration =
+
+document.getElementById("duration");
+ /* LOAD SONG */
+
+function loadSong(index) {
+
+currentSong index;
+
+const song songs [index];
+
+audio.src song.src;
+
+document.getElementById("nowTitle").textContent
+
+song.title;
+
+document.getElementById("nowArtist").textContent =
+
+song.artist;
+
+document.getElementById("nowCover").textContent
+
+song.cover;
+
+}
+
+/* PLAY */
+
+function play Song(index) {
+
+loadSong(index);
+
+audio.play()
+
+.then(() => {
+
+isPlaying = true;
+
+playBtn.textContent = "";
+
+})
+
+.catch(()=> {
+
+isPlaying false;
+
+playBtn.textContent = "";
+
+alert(
+
+);
+
+"Music file nahi mila.\n\n" +
+
+"music folder mein song" +
+
+(index+1) +
+
+".mp3 add karo."
+
+})
+} 
+ /* PLAY / PAUSE */
+
+function togglePlay(){
+
+if(!audio.src){
+
+play Song(0);
+
+}
+
+return;
+
+}
+
+if (isPlaying) {
+
+audio.pause();
+
+isPlaying = false;
+
+playBtn.textContent = "";
+
+}else{
+
+audio.play();
+
+isPlaying = true;
+
+playBtn.textContent "":
+
+}
+
+/* NEXT */
+
+function next Song() {
+
+currentSong++;
+
+if (currentSong >= songs.length) {
+
+}
+
+currentSong = 0;
+
+playSong(currentSong);
+
+}
+
+/* PREVIOUS */
+
+function previousSong(){
+
+currentSong-
+  if (currentSong < 0) {
+
+currentSong songs.length 1;
+
+}
+
+playSong(currentSong);
+}
+/* AUTO NEXT */
+
+audio.addEventListener("ended", function(){
+
+nextSong();
+
+});
+
+/* PROGRESS */
+
+audio.addEventListener("timeupdate", function() {
+
+if (audio.duration) {
+
+const percent
+
+(audio.currentTime / audio. duration) *
+
+100;
+
+progress.value = percent;
+
+currentTime.textContent =
+
+}
+
+});
+
+formatTime(audio.currentTime);
+
+duration.textContent =
+
+formatTime(audio.duration);
+
+function seekMusic(){
+
+if (audio.duration) {
+
+audio.currentTime
+
+(progress.value / 100) *
+
+audio.duration;
+
+}
+}
+function formatTime(seconds) {
+
+if (isNaN(seconds)) {
+
+return "0:00";
+
+}
+
+}
+
+const min =
+
+Math.floor(seconds / 60);
+
+const sec =
+
+Math.floor(seconds % 60)
+
+.toString()
+
+.padStart(2,"0");
+
+return min + ":" + sec;
+
+/* VOLUME */
+
+function changeVolume(){
+
+audio.volume =
+
+document.getElementById("volume").value;
+
+}
+ audio.volume = .7;
+
+/* LIKE */
+
+function toggleLike(){
+ liked = !liked;
+
+    const btn =
+        document.querySelector(".like");
+
+    btn.textContent =
+        liked ? "❤️" : "♡";
+
+    btn.style.color =
+        liked ? "#19a7ff" : "#8d99a2";
+
+  }
+  }
+
+/* SHUFFLE */
+
+function shuffleSongs(){
+
+    currentSong =
+        Math.floor(Math.random() * songs.length);
+
+    playSong(currentSong);
+
+}
+
+/* REPEAT */
+
+function repeatSong(){
+
+    audio.currentTime = 0;
+
+    audio.play();
+
+    isPlaying = true;
+
+    playBtn.textContent = "⏸";
+
+}
+
+/* SEARCH */
+
+function searchMusic(){
+
+    const query =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(card=>{
+
+        const text =
+            card.dataset.search || "";
+
+        if(text.includes(query)){
+                   card.style.display = "";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* MOBILE SIDEBAR */
+
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* SECTION */
+
+function showSection(section){
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
+    if(section === "home"){
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+
+}
+
+
+/* KEYBOARD SHORTCUT */
+
+document.addEventListener("keydown", function(e){
+e.preventDefault();
+
+        togglePlay();
+
+    }
+
+    if(e.code === "ArrowRight"){
+
+        nextSong();
+
+    }
+
+    if(e.code === "ArrowLeft"){
+
+        previousSong();
+
+    }
+
+});
+
+
+/* INITIAL */
+
+loadSong(0);
+
+</script>
 
 </body>
-</html>
+</html>                        
+  
