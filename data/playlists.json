@@ -1,0 +1,28 @@
+{
+  "playlists": [
+    {
+      "name": "Featured Playlist",
+      "spotify": "37i9dQZF1E8LkVkx8VccyZ"
+    },
+    {
+      "name": "Chill Vibes",
+      "spotify": "37i9dQZF1E4yDV1qhdLHxf"
+    },
+    {
+      "name": "Trending",
+      "spotify": "37i9dQZF1DXbVhgADFy3im"
+    },
+    {
+      "name": "Romance",
+      "spotify": "37i9dQZF1DXdpQPPZq3F7n"
+    },
+    {
+      "name": "My Favorites",
+      "spotify": "6giQtzNegauz9pVOcQhU2j"
+    },
+    {
+      "name": "Late Night",
+      "spotify": "1Q2Ga9Rw1LORrDgOwbtcgp"
+    }
+  ]
+}
