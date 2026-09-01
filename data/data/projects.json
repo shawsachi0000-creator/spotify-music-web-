@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "title": "AI Studio",
+      "description": "Creative AI experiments & tools"
+    },
+    {
+      "title": "Web Experiences",
+      "description": "Modern interactive websites"
+    },
+    {
+      "title": "Creative Lab",
+      "description": "Ideas turned into digital experiences"
+    }
+  ]
+}
