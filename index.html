@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SACHIN — Digital Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;background:#050507;color:#fff;overflow-x:hidden}
+body:before{content:"";position:fixed;width:500px;height:500px;background:#6c3cff;filter:blur(180px);opacity:.13;top:-150px;left:-150px;pointer-events:none}
+body:after{content:"";position:fixed;width:400px;height:400px;background:#00d9ff;filter:blur(180px);opacity:.08;right:-150px;bottom:-100px;pointer-events:none}
+nav{position:fixed;top:15px;left:50%;transform:translateX(-50%);width:92%;max-width:1150px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,15,20,.72);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.09);border-radius:18px;z-index:1000}
+.logo{font-size:18px;font-weight:800;letter-spacing:2px}.logo span{color:#9b7cff}
+.navlinks{display:flex;gap:25px}.navlinks a{color:#aaa;text-decoration:none;font-size:13px;transition:.3s}.navlinks a:hover{color:white}
+.menu{display:none;font-size:22px;cursor:pointer}
+.hero{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:120px 20px 70px}.hero-content{max-width:850px}
+.badge{display:inline-block;padding:8px 15px;border:1px solid rgba(155,124,255,.35);border-radius:30px;color:#bcaaff;background:rgba(155,124,255,.08);font-size:12px;letter-spacing:1px;margin-bottom:25px}
+.hero h1{font-size:clamp(48px,9vw,105px);line-height:.95;letter-spacing:-5px}.gradient{background:linear-gradient(90deg,#fff,#9c7cff,#55ddff);-webkit-background-clip:text;color:transparent}
+.hero p{margin:28px auto;max-width:620px;color:#92929b;line-height:1.7}
+.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{padding:14px 24px;border-radius:12px;border:1px solid #292930;background:#111116;color:white;cursor:pointer;text-decoration:none;font-weight:600;transition:.3s}.btn:hover{transform:translateY(-3px);border-color:#8061ff}
+.btn.primary{background:linear-gradient(135deg,#7654ff,#4c8dff);border:0;box-shadow:0 10px 35px rgba(110,80,255,.25)}
+section{width:92%;max-width:1150px;margin:0 auto;padding:90px 0}.section-head{margin-bottom:30px}.eyebrow{color:#8e73ff;font-size:11px;letter-spacing:3px;text-transform:uppercase}.section-head h2{font-size:38px;margin-top:8px}.section-head p{color:#777782;margin-top:10px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{background:rgba(15,15,20,.7);border:1px solid #222229;border-radius:22px;padding:30px;transition:.35s}.card:hover{transform:translateY(-5px);border-color:#55438d}
+.about-text{color:#9999a3;line-height:1.8}.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{padding:25px;border-radius:16px;background:#0b0b10;border:1px solid #202027}.stat strong{display:block;font-size:30px}.stat span{color:#73737d;font-size:12px}
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.project{min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;position:relative}.project:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#24185b,#101015);opacity:.9}.project:nth-child(2):before{background:linear-gradient(135deg,#0b4254,#101015)}.project:nth-child(3):before{background:linear-gradient(135deg,#532b13,#101015)}.project-content{position:relative;z-index:2}.project h3{font-size:22px}.project p{color:#aaa;font-size:13px;margin-top:7px}
+.studio{background:#09090d;border:1px solid #25252d;border-radius:25px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}.studio-top{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #25252d}.dots{display:flex;gap:7px}.dot{width:10px;height:10px;border-radius:50%;background:#444}.studio-title{color:#999;font-size:12px}.run{padding:8px 16px;border:0;border-radius:8px;background:#7654ff;color:white;cursor:pointer;font-weight:bold}
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;min-height:450px}.editor-box{position:relative}.editor-label{padding:10px 15px;color:#777;background:#0d0d12;font-size:11px;border-bottom:1px solid #202027}
+textarea{width:100%;height:405px;resize:none;border:0;outline:0;padding:20px;background:#07070a;color:#ddd;font-family:monospace;font-size:14px;line-height:1.6}iframe{width:100%;height:405px;border:0;background:white}
+.premium{position:relative;overflow:hidden;text-align:center;padding:65px 30px;background:radial-gradient(circle at center,rgba(122,85,255,.25),transparent 55%),#0b0911}.premium h2{font-size:45px;margin:10px 0}.premium p{color:#898895;max-width:600px;margin:0 auto 25px;line-height:1.7}
+.playlists{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.playlist{background:#0d0d12;border:1px solid #24242c;border-radius:20px;padding:12px;transition:.3s}.playlist:hover{border-color:#6651a7;transform:translateY(-4px)}.playlist iframe{width:100%;height:352px;border-radius:12px;border:0}
+.contact{text-align:center}.contact h2{font-size:42px;margin:12px 0}.contact p{color:#85858e;margin-bottom:25px}
+footer{text-align:center;padding:35px;color:#55555e;border-top:1px solid #1b1b20;font-size:12px}
+@media(max-width:800px){.navlinks{display:none;position:absolute;top:65px;left:0;width:100%;flex-direction:column;padding:20px;background:#101015;border:1px solid #25252d;border-radius:15px}.navlinks.open{display:flex}.menu{display:block}.hero h1{letter-spacing:-3px}.about-grid,.editor-grid{grid-template-columns:1fr}.projects{grid-template-columns:1fr}.playlists{grid-template-columns:1fr}section{padding:65px 0}}
+@media(max-width:500px){.hero{padding-top:130px}.hero h1{font-size:52px}.section-head h2{font-size:30px}.premium h2{font-size:34px}.contact h2{font-size:32px}}
+</style>
+</head>
+<body>
+<nav><div class="logo">SACHIN<span>.</span></div><div class="navlinks" id="navlinks"><a href="#about">About</a><a href="#projects">Projects</a><a href="#studio">Code Studio</a><a href="#music">Music</a><a href="#contact">Contact</a></div><div class="menu" onclick="toggleMenu()">☰</div></nav>
+
+<div class="hero"><div class="hero-content"><div class="badge">✦ DIGITAL STUDIO • CREATIVE • CODE</div><h1>I BUILD<br><span class="gradient">DIGITAL</span><br>EXPERIENCES.</h1><p>Welcome to SACHIN Digital Studio — a place where creative ideas, code, AI and digital experiences come together.</p><div class="buttons"><a href="#studio" class="btn primary">⚡ Open Code Studio</a><a href="#projects" class="btn">Explore Work ↓</a></div></div></div>
+
+<section id="about"><div class="section-head"><div class="eyebrow">01 — About</div><h2>Built with curiosity.</h2><p>Ideas become experiences when creativity meets technology.</p></div><div class="about-grid"><div class="card"><h3>About SACHIN</h3><br><p class="about-text">I create digital experiences, websites and creative experiments. This studio is my personal space for building, testing and exploring new ideas.</p></div><div class="stats"><div class="stat"><strong>∞</strong><span>Ideas</span></div><div class="stat"><strong>24/7</strong><span>Creating</span></div><div class="stat"><strong>AI</strong><span>Experiments</span></div><div class="stat"><strong>01</strong><span>Digital Studio</span></div></div></div></section>
+
+<section id="projects"><div class="section-head"><div class="eyebrow">02 — Creations</div><h2>Things I've built.</h2><p>Digital projects, experiments and creative ideas.</p></div><div class="projects"><div class="card project"><div class="project-content"><h3>AI Studio</h3><p>Creative AI experiments & tools</p></div></div><div class="card project"><div class="project-content"><h3>Web Experiences</h3><p>Modern interactive websites</p></div></div><div class="card project"><div class="project-content"><h3>Creative Lab</h3><p>Ideas turned into digital experiences</p></div></div></div></section>
+
+<section id="studio"><div class="section-head"><div class="eyebrow">03 — Code Studio</div><h2>Write. Run. Create.</h2><p>Write HTML and instantly see your website.</p></div><div class="studio"><div class="studio-top"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><div class="studio-title">SACHIN_CODE_STUDIO</div><button class="run" onclick="runCode()">▶ RUN</button></div><div class="editor-grid"><div class="editor-box"><div class="editor-label">index.html</div><textarea id="code"><!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+  background:#111;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  padding:80px;
+}
+button{
+  padding:14px 25px;
+  border:0;
+  border-radius:10px;
+  background:#7654ff;
+  color:white;
+}
+</style>
+</head>
+<body>
+<h1>Hello from SACHIN</h1>
+<p>My first website.</p>
+<button>Explore</button>
+</body>
+</html></textarea></div><div class="editor-box"><div class="editor-label">LIVE PREVIEW</div><iframe id="preview"></iframe></div></div></div></section>
+
+<section><div class="card premium"><div class="eyebrow">04 — Premium</div><h2>Create something<br><span class="gradient">extraordinary.</span></h2><p>A premium digital experience built around creativity, technology and imagination.</p><a href="#studio" class="btn primary">Enter Digital Studio →</a></div></section>
+
+<section id="music"><div class="section-head"><div class="eyebrow">05 — Music Lounge</div><h2>My sound. My mood.</h2><p>Relax, explore and listen to your favorite playlists.</p></div><div class="playlists">
+<div class="playlist"><iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1E8LkVkx8VccyZ" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+<div class="playlist"><iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1E4yDV1qhdLHxf" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+<div class="playlist"><iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXbVhgADFy3im" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+<div class="playlist"><iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdpQPPZq3F7n" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+<div class="playlist"><iframe src="https://open.spotify.com/embed/playlist/6giQtzNegauz9pVOcQhU2j" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+<div class="playlist"><iframe src="https://open.spotify.com/embed/playlist/1Q2Ga9Rw1LORrDgOwbtcgp" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+</div></section>
+
+<section id="contact"><div class="card contact"><div class="eyebrow">06 — Contact</div><h2>Let's create something.</h2><p>Have an idea? Turn it into a digital experience.</p><button class="btn primary" onclick="copyEmail()">✉ Let's Connect</button></div></section>
+
+<footer>© 2026 SACHIN — DIGITAL STUDIO<br><br>Built with creativity & code.</footer>
+
+<script>
+function toggleMenu(){document.getElementById("navlinks").classList.toggle("open")}
+function runCode(){document.getElementById("preview").srcdoc=document.getElementById("code").value}
+function copyEmail(){navigator.clipboard.writeText("your@email.com");alert("Email copied! Replace your@email.com with your real email.")}
+window.onload=runCode;
+</script>
+</body>
+</html>
